@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { Button } from "react-native-web";
 
 export const createNoteStyle = StyleSheet.create({
     scrollContainer: {

@@ -22,5 +22,35 @@ export const homeStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 18
+    },
+    listContainer: {
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+    },
+    noteCard: {
+        backgroundColor: '#ffffff',
+        borderRadius: 8,
+        padding: 15,
+        marginVertical: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 5,
+    },
+    noteTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 5,
+    },
+    nodeDate: {
+        fontSize: 14,
+        color: '#888',
+        marginBottom: 5
+    },
+    noteShortDesc: {
+        fontSize: 16,
+        color: '#666'
     }
 })
