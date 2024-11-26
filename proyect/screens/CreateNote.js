@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Alert, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Platform, Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { createNoteStyle } from '../styles/createNoteStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export function CreateNote({ navigation }) {
@@ -10,8 +11,28 @@ export function CreateNote({ navigation }) {
     const [descorta, setDescorta] = useState('');
     const [fecha, setFecha] = useState('');
     const [descripcion, setDescripcion] = useState('');
+    const [showDatePiker, setShowDatePiker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const showDatePickerHandler = () => {
+        setShowDatePiker(true)
+    }
+
+    const onDateChange = (event, date) => {
+        setShowDatePiker(Platform.os === 'ios') //para q ios tenga el calendario abierto hasta  q confirme
+        if (event.type !== 'dismissed' && date) {
+            setSelectedDate(date)
+            setFecha(date.toLocalDateString('es-ES')) //ajuste en formato
+        }
+    }
 
     const saveNote = async () => {
+
+        if (!titulo || !descorta || !fecha || !descripcion) {
+            Alert.alert('Error', 'Debes llenar todos los campos')
+            return;
+        }
+
         try {
             const newNote = {
                 id: Date.now().toString(),
@@ -56,13 +77,31 @@ export function CreateNote({ navigation }) {
                         onChangeText={setDescorta}
                         style={createNoteStyle.input}
                     />
-                    <TextInput
-                        placeholder='Fecha'
-                        placeholderTextColor="slategray"
-                        value={fecha}
-                        onChangeText={setFecha}
-                        style={createNoteStyle.input}
-                    />
+
+                    <TouchableOpacity style={createNoteStyle.input} onPress={showDatePickerHandler}>
+                        <TextInput
+                            style={{ marginTop: 10 }}
+                            placeholder='Fecha'
+                            placeholderTextColor="slategray"
+                            value={fecha}
+                            onChangeText={setFecha}
+                            editable={false}
+                        />
+                    </TouchableOpacity>
+
+                    {/* selector de fecha */}
+                    {
+                        showDatePiker && (
+                            <DateTimePicker
+                                value={selectedDate}
+                                mode="date"
+                                display="default"
+                                onChange={onDateChange}
+                                minimunDate={new Date()}
+                            />
+                        )
+                    }
+
                     <TextInput
                         placeholder='Descripcion'
                         placeholderTextColor="slategray"

@@ -14,13 +14,10 @@ export function Home({ navigation }) {
             setNote(paredNotes)
         } catch (error) {
             console.log('Error al acrgar notas', error);
-
         }
-
     }
 
     //cargar las notas en cuanto se cargue el componente 
-
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', loadNotes)
         return unsubscribe;
