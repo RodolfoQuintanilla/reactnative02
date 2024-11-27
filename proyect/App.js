@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Home } from './screens/Home';
 import { CreateNote } from './screens/CreateNote';
 import DetailNote from './screens/DetailNote';
+import { customTransition } from './transitions/EasingTransition';
+import { fadeTransition } from './transitions/fadeTransition';
+import { slideTransition } from './transitions/slideTransition';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -11,9 +14,9 @@ export default function App() {
   function MyStack() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="CreateNote" component={CreateNote} />
-        <Stack.Screen name="DetailNote" component={DetailNote} />
+        <Stack.Screen name="Home" component={Home}  options={fadeTransition}  />
+        <Stack.Screen name="CreateNote" component={CreateNote}  options={customTransition}  />
+        <Stack.Screen name="DetailNote" component={DetailNote}  options={slideTransition}  />
       </Stack.Navigator>
     );
   }
