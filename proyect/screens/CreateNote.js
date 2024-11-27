@@ -15,16 +15,18 @@ export function CreateNote({ navigation }) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const showDatePickerHandler = () => {
-        setShowDatePiker(true)
-    }
+        setShowDatePiker(true);
+    };
 
     const onDateChange = (event, date) => {
-        setShowDatePiker(Platform.os === 'ios') //para q ios tenga el calendario abierto hasta  q confirme
-        if (event.type !== 'dismissed' && date) {
-            setSelectedDate(date)
-            setFecha(date.toLocalDateString('es-ES')) //ajuste en formato
+        if (Platform.OS === 'android') {
+            setShowDatePiker(false); // Cierra el picker en Android
         }
-    }
+        if (event.type !== 'dismissed' && date) {
+            setSelectedDate(date);
+            setFecha(date.toLocaleDateString('es-ES'));
+        }
+    };
 
     const saveNote = async () => {
 
@@ -84,12 +86,9 @@ export function CreateNote({ navigation }) {
                             placeholder='Fecha'
                             placeholderTextColor="slategray"
                             value={fecha}
-                            onChangeText={setFecha}
-                            editable={false}
+                            editable={false} // Esto evita editar directamente
                         />
                     </TouchableOpacity>
-
-                    {/* selector de fecha */}
                     {
                         showDatePiker && (
                             <DateTimePicker
@@ -97,7 +96,7 @@ export function CreateNote({ navigation }) {
                                 mode="date"
                                 display="default"
                                 onChange={onDateChange}
-                                minimunDate={new Date()}
+                                minimumDate={new Date()} // Fija un mínimo en la fecha
                             />
                         )
                     }

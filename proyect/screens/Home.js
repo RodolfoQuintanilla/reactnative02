@@ -26,11 +26,17 @@ export function Home({ navigation }) {
     //cuerpo de flatlist
     const renderNote = ({ item }) => {
         return (
-            <View style={homeStyles.noteCard}>
-                <Text style={homeStyles.noteTitle}>{item.titulo}</Text>
-                <Text style={homeStyles.nodeDate}>{item.fecha}</Text>
-                <Text style={homeStyles.noteShortDesc}>{item.descorta}</Text>
-            </View>
+            <TouchableOpacity 
+            style={homeStyles.noteCard}
+            onPress={()=> navigation.navigate('DetailNote', {note: item})}
+            >
+                <View>
+                    <Text style={homeStyles.noteTitle}>{item.titulo}</Text>
+                    <Text style={homeStyles.nodeDate}>{item.fecha}</Text>
+                    <Text style={homeStyles.noteShortDesc}>{item.descorta}</Text>
+                </View>
+            </TouchableOpacity>
+
         );
     };
 
