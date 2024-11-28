@@ -13,7 +13,7 @@ export default function App() {
 
   function MyStack() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name="Home" component={Home}  options={fadeTransition}  />
         <Stack.Screen name="CreateNote" component={CreateNote}  options={customTransition}  />
         <Stack.Screen name="DetailNote" component={DetailNote}  options={slideTransition}  />
